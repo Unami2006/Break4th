@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Medical Knowledge</title>
+<title>Medical Knowledge Hub | ClinAssist AI</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <nav>
@@ -14,24 +14,112 @@
     <h2>Medical Knowledge Hub</h2>
 </nav>
 
-<section class="container grid">
+<section class="knowledge-container">
 
-    <div class="card">
-    <h3>Chest Pain Warning Signs</h3>
-    <p>Seek urgent care if chest pain includes pressure, shortness of breath, or sweating.</p>
+    <!-- ========================= -->
+    <!-- COMMON DISEASES -->
+    <!-- ========================= -->
+    <h2 class="section-title">Common Diseases</h2>
+
+    <div class="accordion">
+
+        <button class="accordion-btn">Influenza (Flu)</button>
+        <div class="accordion-content">
+            <p><strong>Symptoms:</strong> Fever, body aches, fatigue, cough.</p>
+            <p><strong>Transmission:</strong> Respiratory droplets.</p>
+            <p><strong>Prevention:</strong> Vaccination, hand hygiene.</p>
+        </div>
+
+        <button class="accordion-btn">Chickenpox</button>
+        <div class="accordion-content">
+            <p><strong>Symptoms:</strong> Itchy rash, fever, fatigue.</p>
+            <p><strong>Cause:</strong> Varicella-zoster virus.</p>
+            <p><strong>Prevention:</strong> Vaccination recommended.</p>
+        </div>
+
+        <button class="accordion-btn">Common Cold</button>
+        <div class="accordion-content">
+            <p><strong>Symptoms:</strong> Runny nose, sore throat, mild cough.</p>
+            <p><strong>Severity:</strong> Usually mild and self-limiting.</p>
+        </div>
+
     </div>
 
-    <div class="card">
-    <h3>Stroke Warning Signs (FAST)</h3>
-    <p>Face drooping, Arm weakness, Speech difficulty — Time to seek emergency care.</p>
+
+    <!-- ========================= -->
+    <!-- SERIOUS MUST KNOW -->
+    <!-- ========================= -->
+    <h2 class="section-title">Serious Must Know Conditions</h2>
+
+    <div class="accordion">
+
+        <button class="accordion-btn">HIV / AIDS</button>
+        <div class="accordion-content">
+            <p><strong>Transmission:</strong> Blood, sexual contact, mother-to-child.</p>
+            <p><strong>Management:</strong> Antiretroviral therapy (ART).</p>
+            <p><strong>Important:</strong> Early testing improves outcomes.</p>
+        </div>
+
+        <button class="accordion-btn">Stroke</button>
+        <div class="accordion-content">
+            <p><strong>FAST Method:</strong></p>
+            <ul>
+                <li>Face drooping</li>
+                <li>Arm weakness</li>
+                <li>Speech difficulty</li>
+                <li>Time to seek emergency care</li>
+            </ul>
+        </div>
+
+        <button class="accordion-btn">Heart Attack</button>
+        <div class="accordion-content">
+            <p><strong>Symptoms:</strong> Chest pressure, sweating, nausea.</p>
+            <p><strong>Action:</strong> Immediate emergency response required.</p>
+        </div>
+
     </div>
 
-    <div class="card">
-    <h3>Flu vs Cold</h3>
-    <p>Flu often includes high fever and body aches. Colds are usually milder.</p>
+
+    <!-- ========================= -->
+    <!-- PUBLIC HEALTH OUTBREAKS -->
+    <!-- ========================= -->
+    <h2 class="section-title">Public Health Outbreaks</h2>
+
+    <div class="accordion">
+
+        <button class="accordion-btn">COVID-19</button>
+        <div class="accordion-content">
+            <p><strong>Cause:</strong> SARS-CoV-2 virus.</p>
+            <p><strong>Symptoms:</strong> Fever, cough, loss of taste/smell.</p>
+            <p><strong>Impact:</strong> Global pandemic declared in 2020.</p>
+        </div>
+
+        <button class="accordion-btn">Ebola Virus</button>
+        <div class="accordion-content">
+            <p><strong>Symptoms:</strong> Severe fever, internal bleeding.</p>
+            <p><strong>Mortality:</strong> High fatality rate without treatment.</p>
+        </div>
+
     </div>
 
 </section>
+
+<script>
+    const buttons = document.querySelectorAll(".accordion-btn");
+
+    buttons.forEach(button => {
+        button.addEventListener("click", () => {
+            button.classList.toggle("active");
+            const content = button.nextElementSibling;
+
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    });
+</script>
 
 </body>
 </html>

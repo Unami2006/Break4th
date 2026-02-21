@@ -198,13 +198,23 @@ function logout() {
 ================================ */
 
 function bookAppointment() {
-    const date = document.getElementById("appointmentDate").value;
-    const type = document.getElementById("appointmentType").value;
+
+    const date =
+        document.getElementById("appointmentDate").value;
+
+    const type =
+        document.getElementById("appointmentType").value;
+
+    if (!date) {
+        alert("Please select a date.");
+        return;
+    }
 
     const appointments =
         JSON.parse(localStorage.getItem("appointments")) || [];
 
     appointments.push({
+        name: "Live Patient",
         date: date,
         type: type,
         status: "Pending"
@@ -213,9 +223,8 @@ function bookAppointment() {
     localStorage.setItem("appointments",
         JSON.stringify(appointments));
 
-    alert("Appointment Request Sent!");
+    alert("Appointment request sent to doctor.");
 }
-
 function loadDoctorActivity() {
 
     const submissions =
@@ -310,3 +319,184 @@ async function downloadDoctorPDF() {
 
 
 initializeDemoData();
+
+/* ===============================
+   PATIENT ANALYSIS
+================================ */
+
+function analyzePatient() {
+
+    const input =
+        document.getElementById("patientInput").value.trim();
+
+    const outputSection =
+        document.getElementById("patientOutput");
+
+    const summaryBox =
+        document.getElementById("summary");
+
+    const riskBox =
+        document.getElementById("patientRisk");
+
+    if (input.length < 15) {
+        summaryBox.innerHTML = `
+        <strong>More Information Needed:</strong>
+        <ul>
+          <li>How long have you had symptoms?</li>
+          <li>Where is the discomfort located?</li>
+          <li>Severity (1–10)?</li>
+          <li>Any fever, nausea, dizziness?</li>
+        </ul>
+        `;
+        riskBox.innerText =
+          "Insufficient data for risk assessment";
+        riskBox.style.background = "#334155";
+        outputSection.classList.remove("hidden");
+        return;
+    }
+
+    const risk = detectRisk(input);
+
+    summaryBox.innerHTML = `
+    <strong>Patient Report:</strong><br>
+    ${input}<br><br>
+    <strong>Preliminary Assessment:</strong><br>
+    ${risk.category.join(", ")}
+    `;
+
+    riskBox.innerText = risk.level;
+
+    if (risk.color === "red")
+        riskBox.style.background = "#7f1d1d";
+    else if (risk.color === "orange")
+        riskBox.style.background = "#7c2d12";
+    else
+        riskBox.style.background = "#14532d";
+
+    outputSection.classList.remove("hidden");
+}
+/* ===============================
+   SEND TO DOCTOR
+================================ */
+
+function sendToDoctorFromPatient() {
+
+    const summary =
+        document.getElementById("summary").innerText;
+
+    const submissions =
+        JSON.parse(localStorage.getItem("submissions")) || [];
+
+    submissions.push({
+        name: "Live Patient",
+        summary: summary,
+        date: new Date().toLocaleString()
+    });
+
+    localStorage.setItem("submissions",
+        JSON.stringify(submissions));
+
+    alert("Summary sent to Doctor!");
+}
+
+/* ===============================
+   PHARMACY DELIVERY SYSTEM
+================================ */
+
+function requestMedication() {
+
+    const medication =
+        document.getElementById("medicationSelect").value;
+
+    const deliveryBox =
+        document.getElementById("deliveryStatus");
+
+    deliveryBox.classList.remove("hidden");
+
+    const arrivalTime = new Date();
+    arrivalTime.setMinutes(arrivalTime.getMinutes() + 30);
+
+    deliveryBox.innerHTML = `
+        <strong>${medication}</strong><br>
+        Status: Preparing Order...
+    `;
+
+    setTimeout(() => {
+        deliveryBox.innerHTML = `
+            <strong>${medication}</strong><br>
+            Status: Out for Delivery 🚚
+        `;
+    }, 3000);
+
+    setTimeout(() => {
+        deliveryBox.innerHTML = `
+            <strong>${medication}</strong><br>
+            Status: Delivered ✅<br>
+            Arrival Time: ${arrivalTime.toLocaleTimeString()}
+        `;
+    }, 6000);
+}
+/* ===============================
+   PDF EXPORT
+================================ */
+
+async function downloadPatientPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.text("ClinAssist AI - Patient Summary", 20, 20);
+    doc.text(document.getElementById("summary").innerText, 20, 40);
+    doc.save("Patient_Summary.pdf");
+}
+
+/* ===============================
+   PATIENT VOICE SYSTEM
+================================ */
+
+let patientRecognition;
+
+function setPatientMode(mode) {
+
+    document.getElementById("patientTypeBtn")
+        .classList.remove("active");
+    document.getElementById("patientVoiceBtn")
+        .classList.remove("active");
+
+    if (mode === "type") {
+        document.getElementById("patientTypeBtn")
+            .classList.add("active");
+        if (patientRecognition) patientRecognition.stop();
+        document.getElementById("patientVoiceStatus")
+            .classList.add("hidden");
+    } else {
+        document.getElementById("patientVoiceBtn")
+            .classList.add("active");
+        startPatientVoice();
+    }
+}
+
+function startPatientVoice() {
+
+    const status =
+        document.getElementById("patientVoiceStatus");
+
+    status.classList.remove("hidden");
+
+    patientRecognition =
+        new (window.SpeechRecognition ||
+             window.webkitSpeechRecognition)();
+
+    patientRecognition.lang = "en-US";
+    patientRecognition.start();
+
+    patientRecognition.onresult = function(event) {
+        document.getElementById("patientInput").value =
+            event.results[0][0].transcript;
+        status.classList.add("hidden");
+    };
+
+    patientRecognition.onerror = function() {
+        status.classList.add("hidden");
+        alert("Voice recognition error.");
+    };
+}

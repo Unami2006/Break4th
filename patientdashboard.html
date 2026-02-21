@@ -31,16 +31,26 @@
 
     <div class="card">
 
-      <h3>Describe Your Symptoms</h3>
+     <h3>Describe Your Symptoms</h3>
 
-      <textarea id="patientInput"
-        placeholder="Example: I have chest pain and shortness of breath for 2 days...">
-      </textarea>
+<div class="mode-toggle">
+  <button id="patientTypeBtn" class="active"
+    onclick="setPatientMode('type')">📝 Type</button>
+  <button id="patientVoiceBtn"
+    onclick="setPatientMode('voice')">🎤 Voice</button>
+</div>
 
-      <div class="actions">
-        <button onclick="startVoice('patientInput')">🎤 Voice</button>
-        <button onclick="analyzePatient()">Generate Summary</button>
-      </div>
+<textarea id="patientInput"
+  placeholder="Example: I have chest pain and shortness of breath for 2 days...">
+</textarea>
+
+<div id="patientVoiceStatus" class="voice-status hidden">
+  🎤 Listening...
+</div>
+
+<div class="actions">
+  <button onclick="analyzePatient()">Generate Summary</button>
+</div>
 
       <div id="patientOutput" class="hidden">
 

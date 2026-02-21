@@ -13,11 +13,27 @@
   <a href="index.html">← Home</a>
   <h2>Patient Dashboard</h2>
 </nav>
-
+<div class="info-banner">
+  <strong>How It Works:</strong>
+  <ul>
+    <li>Describe your symptoms using text or voice.</li>
+    <li>Request an online or physical appointment.</li>
+    <li>Your request will appear in your doctor’s dashboard.</li>
+    <li>You will receive approval or rescheduling updates.</li>
+  </ul>
+</div>
 <section class="container">
 
   <textarea id="patientInput" placeholder="Describe your symptoms..."></textarea>
+<h3>Book Appointment</h3>
 
+<input type="date" id="appointmentDate">
+<select id="appointmentType">
+  <option value="Online">Online Consultation</option>
+  <option value="Physical">Physical Visit</option>
+</select>
+
+<button onclick="bookAppointment()">Request Appointment</button>
   <div class="actions">
     <button onclick="startVoice('patientInput')">🎤 Voice</button>
     <button onclick="analyzePatient()">Generate Summary</button>

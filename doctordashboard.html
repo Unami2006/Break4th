@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Doctor Mode</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body onload="checkAccess('doctor')">
+
+<nav>
+  <a href="index.html">← Home</a>
+  <h2>Doctor Dashboard</h2>
+</nav>
+
+<section class="container">
+
+  <textarea id="doctorInput" placeholder="Enter or speak consultation notes..."></textarea>
+
+  <div class="actions">
+    <button onclick="startVoice('doctorInput')">🎤 Voice</button>
+    <button onclick="analyzeDoctor()">Analyze</button>
+  </div>
+
+  <div id="doctorOutput" class="card hidden">
+    <h3>SOAP Note</h3>
+    <div id="soap"></div>
+
+    <h3>Risk Level</h3>
+    <div id="risk"></div>
+    
+    <button onclick="downloadDoctorPDF()">Download PDF</button>
+  </div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

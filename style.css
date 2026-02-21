@@ -1,0 +1,285 @@
+/* =====================================================
+    1. GLOBAL RESET & DESIGN SYSTEM (ALL PAGES)
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background: #f4f9ff;
+    color: #1e293b;
+    min-height: 100vh;
+}
+
+h1, h2, h3 {
+    color: #0d6efd;
+}
+
+a {
+    text-decoration: none;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 30px 20px;
+}
+
+/* Smooth transitions */
+button, .btn, .card {
+    transition: all 0.3s ease;
+}
+
+/* =====================================================
+    2. NAVIGATION (index + dashboards + knowledge)
+===================================================== */
+
+nav {
+    background: linear-gradient(90deg, #0d6efd, #38bdf8);
+    color: white;
+    padding: 18px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+}
+
+nav h2 {
+    color: white;
+    font-weight: 600;
+}
+
+nav a {
+    color: white;
+    font-weight: 500;
+}
+
+/* =====================================================
+    3. HOME PAGE (index.html)
+===================================================== */
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background: linear-gradient(to bottom, #e0f2fe, #f4f9ff);
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 15px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #475569;
+}
+
+.role-buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 22px;
+    margin: 8px;
+    background: #0d6efd;
+    color: white;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.btn:hover {
+    background: #0b5ed7;
+    transform: translateY(-3px);
+}
+
+.outline {
+    background: white;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+}
+
+.outline:hover {
+    background: #0d6efd;
+    color: white;
+}
+
+/* =====================================================
+    4. LOGIN PAGES (doctor-login + patient-login)
+===================================================== */
+
+.auth-page {
+    background: linear-gradient(135deg, #0d6efd, #38bdf8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-container {
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.auth-container h2 {
+    margin-bottom: 20px;
+}
+
+.auth-container input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+}
+
+.auth-container input:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px rgba(13,110,253,0.3);
+}
+
+.auth-container button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    background: #0d6efd;
+    color: white;
+    border: none;
+    font-weight: 500;
+}
+
+.auth-container button:hover {
+    background: #0b5ed7;
+}
+
+.practice-box {
+    margin-top: 20px;
+    background: #e0f2fe;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.error {
+    color: #dc2626;
+    margin-top: 10px;
+}
+
+/* =====================================================
+    5. DASHBOARDS (doctor + patient)
+===================================================== */
+
+textarea {
+    width: 100%;
+    padding: 15px;
+    height: 130px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    margin-bottom: 20px;
+    font-size: 15px;
+}
+
+textarea:focus {
+    outline: none;
+    border-color: #0d6efd;
+    box-shadow: 0 0 5px rgba(13,110,253,0.3);
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.actions.wrap {
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 10px 18px;
+    border: none;
+    background: #0d6efd;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+button:hover {
+    background: #0b5ed7;
+    transform: translateY(-2px);
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-top: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.06);
+}
+
+.hidden {
+    display: none;
+}
+
+/* =====================================================
+    6. MEDICAL KNOWLEDGE PAGE (knowledge.html)
+===================================================== */
+
+.grid {
+    display: grid;
+    gap: 20px;
+}
+
+.card h3 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #475569;
+}
+
+/* =====================================================
+    7. RESPONSIVE RULES (ALL PAGES)
+===================================================== */
+
+@media (min-width: 768px) {
+    .grid {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+    .hero h1 {
+    font-size: 42px;
+}
+}
+
+@media (max-width: 600px) {
+
+    nav {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+}
+
+    .hero {
+    padding: 60px 15px;
+}
+
+    .actions {
+    flex-direction: column;
+}
+
+    button {
+    width: 100%;
+}
+}

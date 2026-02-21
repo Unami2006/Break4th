@@ -414,72 +414,56 @@ textarea:focus {
     box-shadow: 0 0 8px rgba(29,78,216,0.4);
 }
 
-/* BUTTONS */
+/* ===== CLEAN BUTTON SYSTEM ===== */
+
+.actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
 
 .actions button {
-    width: 100%;
-    padding: 12px;
+    padding: 10px 18px;
     background: #1d4ed8;
     border: none;
-    border-radius: 8px;
+    border-radius: 6px;
     color: white;
     font-weight: 500;
     cursor: pointer;
-    transition: 0.3s ease;
+    transition: 0.2s ease;
 }
 
 .actions button:hover {
     background: #2563eb;
+    transform: translateY(-2px);
 }
 
 .secondary-btn {
-  position: relative;
-  width: 100%;              /* same full width */
-  padding: 12px;            /* same height feel */
-  margin-top: 15px;         /* same spacing */
-  border-radius: 8px;       /* match old radius */
-  border: 1px solid rgb(61, 106, 255);
-  font-size: 14px;
-  text-transform: uppercase;
-  font-weight: 600;
-  letter-spacing: 2px;
-  background: transparent;
-  color: #fff;
-  overflow: hidden;
-  cursor: pointer;
-  box-shadow: 0 0 0 0 transparent;
-  transition: all 0.2s ease-in;
+    padding: 10px 18px;
+    background: #334155;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
 }
 
 .secondary-btn:hover {
-  background: rgb(2, 64, 249);
-  box-shadow: 0 0 30px 5px rgba(0, 86, 205, 0.815);
-  transition: all 0.2s ease-out;
+    background: #475569;
 }
 
-.secondary-btn:hover::before {
-  animation: sh02 0.5s linear;
+/* Appointment + Pharmacy Buttons */
+.activity-panel button {
+    padding: 10px 16px;
+    background: #1d4ed8;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    margin-top: 8px;
+    width: auto; /* Important */
 }
-
-.secondary-btn::before {
-  content: '';
-  position: absolute;
-  width: 0px;
-  height: 86%;
-  top: 7%;
-  left: 0%;
-  opacity: 0;
-  background: #fff;
-  box-shadow: 0 0 50px 30px #fff;
-  transform: skewX(-20deg);
-}
-
-.secondary-btn:active {
-  box-shadow: 0 0 0 0 transparent;
-  transition: box-shadow 0.2s ease-in;
-}
-
-
 
 /* OUTPUT BOX */
 
@@ -595,8 +579,120 @@ textarea:focus {
 .status-rescheduled {
     color: #38bdf8;
 }
+/* ===== PATIENT DELIVERY BOX ===== */
 
+.delivery-box {
+    margin-top: 15px;
+    padding: 15px;
+    background: #0f172a;
+    border-radius: 8px;
+    border: 1px solid #1e293b;
+    color: #cbd5e1;
+}
 
-.hidden {
-    display: none;
+select, input[type="date"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: #0f172a;
+    border: 1px solid #334155;
+    border-radius: 8px;
+    color: white;
+}
+
+.wrap {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+/* ===== KNOWLEDGE BASE ===== */
+
+.knowledge-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    margin: 40px 0 15px;
+    color: #ffffff;
+}
+
+/* Accordion */
+
+.accordion-btn {
+    width: 100%;
+    padding: 16px;
+    background: #111c2f;
+    border: 1px solid #1e293b;
+    border-radius: 8px;
+    color: #ffffff;
+    text-align: left;
+    font-size: 18px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    transition: 0.3s ease;
+}
+
+.accordion-btn:hover {
+    background: #1d4ed8;
+}
+
+.accordion-content {
+    background: #0f172a;
+    border-radius: 8px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+    padding: 0 15px;
+}
+
+.accordion-content p,
+.accordion-content ul {
+    margin: 15px 0;
+    color: #cbd5e1;
+    font-size: 16px;
+}
+
+.accordion-content ul {
+    padding-left: 20px;
+}
+/* ===== DOCTOR RISK RANKING ===== */
+
+.risk-badge {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
+    color: white;
+}
+
+.risk-high {
+    background: #dc2626;
+}
+
+.risk-moderate {
+    background: #f59e0b;
+}
+
+.risk-low {
+    background: #16a34a;
+}
+
+/* Left border flare */
+
+.priority-high {
+    border-left: 5px solid #dc2626;
+    background: rgba(220, 38, 38, 0.08);
+}
+
+.priority-moderate {
+    border-left: 5px solid #f59e0b;
+}
+
+.priority-low {
+    border-left: 5px solid #16a34a;
 }

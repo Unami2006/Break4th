@@ -3,64 +3,98 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>ClinAssist AI</title>
+<title>Patient Dashboard | ClinAssist AI</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body onload="checkAccess('patient')">   <!--After correct login → redirects to correct dashboard;If someone types dashboard URL manually → blocked; If wrong login → shows error;Logout clears session-->
+
+<body onload="checkAccess('patient')">
 
 <nav>
   <a href="index.html">← Home</a>
   <h2>Patient Dashboard</h2>
+  <button onclick="logout()">Logout</button>
 </nav>
+
 <div class="info-banner">
   <strong>How It Works:</strong>
   <ul>
     <li>Describe your symptoms using text or voice.</li>
-    <li>Request an online or physical appointment.</li>
-    <li>Your request will appear in your doctor’s dashboard.</li>
-    <li>You will receive approval or rescheduling updates.</li>
+    <li>Generate a structured health summary.</li>
+    <li>Send the summary to your doctor.</li>
+    <li>Book appointments or request medication delivery.</li>
   </ul>
 </div>
-<section class="container">
 
-  <textarea id="patientInput" placeholder="Describe your symptoms..."></textarea>
-<h3>Book Appointment</h3>
+<section class="dashboard-container">
 
-<input type="date" id="appointmentDate">
-<select id="appointmentType">
-  <option value="Online">Online Consultation</option>
-  <option value="Physical">Physical Visit</option>
-</select>
+  <div class="consultation-panel">
 
-<button onclick="bookAppointment()">Request Appointment</button>
-  <div class="actions">
-    <button onclick="startVoice('patientInput')">🎤 Voice</button>
-    <button onclick="analyzePatient()">Generate Summary</button>
+    <div class="card">
+
+      <h3>Describe Your Symptoms</h3>
+
+      <textarea id="patientInput"
+        placeholder="Example: I have chest pain and shortness of breath for 2 days...">
+      </textarea>
+
+      <div class="actions">
+        <button onclick="startVoice('patientInput')">🎤 Voice</button>
+        <button onclick="analyzePatient()">Generate Summary</button>
+      </div>
+
+      <div id="patientOutput" class="hidden">
+
+        <h4>Symptom Summary</h4>
+        <div id="summary" class="output-box"></div>
+
+        <h4>Risk Level</h4>
+        <div id="patientRisk"></div>
+
+        <div class="actions wrap">
+          <button onclick="sendToDoctorFromPatient()">Send to Doctor</button>
+          <button onclick="downloadPatientPDF()">Download PDF</button>
+        </div>
+
+      </div>
+
+    </div>
+
   </div>
 
-  <div id="patientOutput" class="card hidden">
-    <h3>Symptom Summary</h3>
-    <div id="summary"></div>
+  <div class="activity-panel">
 
-    <h3>Risk Level</h3>
-    <div id="patientRisk"></div>
+    <div class="card">
+      <h3>Book Appointment</h3>
 
-    <div class="actions wrap">
-      <button onclick="notify('Sent to Doctor')">Send to Doctor</button>
-      <button onclick="notify('Appointment Booked')">Book Appointment</button>
-      <button onclick="notify('Medication Delivery Requested (Pay on Delivery)')">
-        Request Medication Delivery
-      </button>
-      <button onclick="notify('Sent to Pharmacy')">
-        Send to Pharmacy
-      </button>
-      <button onclick="downloadPatientPDF()">Download PDF</button>
+      <input type="date" id="appointmentDate">
+      <select id="appointmentType">
+        <option value="Online Consultation">Online Consultation</option>
+        <option value="Physical Visit">Physical Visit</option>
+      </select>
+
+      <button onclick="bookAppointment()">Request Appointment</button>
     </div>
+
+    <div class="card">
+      <h3>Pharmacy Request</h3>
+
+      <select id="medicationSelect">
+        <option value="Paracetamol">Paracetamol</option>
+        <option value="Ibuprofen">Ibuprofen</option>
+        <option value="Antibiotics">Antibiotics</option>
+        <option value="Cough Syrup">Cough Syrup</option>
+      </select>
+
+      <button onclick="requestMedication()">Request Delivery</button>
+
+      <div id="deliveryStatus" class="delivery-box hidden"></div>
+    </div>
+
   </div>
 
 </section>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

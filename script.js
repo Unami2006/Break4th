@@ -240,21 +240,62 @@ function loadDoctorActivity() {
         document.getElementById("appointments");
 
     // LOAD SUBMISSIONS
-    if (submissionContainer) {
-        if (submissions.length === 0) {
-            submissionContainer.innerHTML =
-                "<p>No patient submissions yet.</p>";
-        } else {
-            submissionContainer.innerHTML =
-                submissions.map(s => `
-                    <div class="appointment-card">
-                        <strong>${s.name}</strong><br>
-                        Symptoms: ${s.summary}<br>
-                        <small>${s.date}</small>
-                    </div>
-                `).join("");
-        }
+    // LOAD SUBMISSIONS WITH RISK SORTING
+if (submissionContainer) {
+
+    if (submissions.length === 0) {
+        submissionContainer.innerHTML =
+            "<p>No patient submissions yet.</p>";
+    } else {
+
+        // Attach risk to each submission dynamically
+        const enhancedSubmissions = submissions.map(s => {
+            const riskData = detectRisk(s.summary);
+
+            let priorityValue = 1;
+            let priorityClass = "priority-low";
+            let badgeClass = "risk-low";
+            let label = "LOW";
+
+            if (riskData.color === "red") {
+                priorityValue = 3;
+                priorityClass = "priority-high";
+                badgeClass = "risk-high";
+                label = "HIGH";
+            } else if (riskData.color === "orange") {
+                priorityValue = 2;
+                priorityClass = "priority-moderate";
+                badgeClass = "risk-moderate";
+                label = "MODERATE";
+            }
+
+            return {
+                ...s,
+                priorityValue,
+                priorityClass,
+                badgeClass,
+                label
+            };
+        });
+
+        // Sort High → Moderate → Low
+        enhancedSubmissions.sort((a, b) =>
+            b.priorityValue - a.priorityValue
+        );
+
+        submissionContainer.innerHTML =
+            enhancedSubmissions.map(s => `
+                <div class="appointment-card ${s.priorityClass}">
+                    <strong>${s.name}</strong><br>
+                    Symptoms: ${s.summary}<br>
+                    <small>${s.date}</small><br>
+                    <span class="risk-badge ${s.badgeClass}">
+                        ${s.label} RISK
+                    </span>
+                </div>
+            `).join("");
     }
+}
 
     // LOAD APPOINTMENTS
     if (appointmentContainer) {

@@ -433,15 +433,53 @@ textarea:focus {
 }
 
 .secondary-btn {
-    width: 100%;
-    padding: 12px;
-    margin-top: 15px;
-    background: #334155;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
+  position: relative;
+  width: 100%;              /* same full width */
+  padding: 12px;            /* same height feel */
+  margin-top: 15px;         /* same spacing */
+  border-radius: 8px;       /* match old radius */
+  border: 1px solid rgb(61, 106, 255);
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 2px;
+  background: transparent;
+  color: #fff;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 0 0 0 transparent;
+  transition: all 0.2s ease-in;
 }
+
+.secondary-btn:hover {
+  background: rgb(2, 64, 249);
+  box-shadow: 0 0 30px 5px rgba(0, 86, 205, 0.815);
+  transition: all 0.2s ease-out;
+}
+
+.secondary-btn:hover::before {
+  animation: sh02 0.5s linear;
+}
+
+.secondary-btn::before {
+  content: '';
+  position: absolute;
+  width: 0px;
+  height: 86%;
+  top: 7%;
+  left: 0%;
+  opacity: 0;
+  background: #fff;
+  box-shadow: 0 0 50px 30px #fff;
+  transform: skewX(-20deg);
+}
+
+.secondary-btn:active {
+  box-shadow: 0 0 0 0 transparent;
+  transition: box-shadow 0.2s ease-in;
+}
+
+
 
 /* OUTPUT BOX */
 

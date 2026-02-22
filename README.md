@@ -10,22 +10,22 @@ ClinAssist AI bridges this gap by combining structured symptom reporting with re
 
 The system is designed to:
 
-Detect high-risk symptoms instantly using intelligent keyword analysis
+- Detect high-risk symptoms instantly using intelligent keyword analysis
 
-Generate structured SOAP notes in real time
+- Generate structured SOAP notes in real time
 
-Prioritize patient cases based on risk level
+- Prioritize patient cases based on risk level
 
-Reduce documentation time and cognitive load for doctors
+- Reduce documentation time and cognitive load for doctors
 
-Empower patients to communicate symptoms clearly and confidently
+- Empower patients to communicate symptoms clearly and confidently
 
 By integrating AI-driven assistance into everyday clinical workflows, ClinAssist AI enhances early intervention, improves operational efficiency, and supports safer, faster clinical decision-making.
 
 This project aligns with the broader goal of leveraging technology to strengthen healthcare systems, improve response times, and create accessible digital tools that support both patients and providers.
 
-Key Features
-Doctor Mode
+**Key Features**
+Doctor Mode:
 
 Voice or text-based consultation input
 
@@ -39,7 +39,8 @@ Appointment approval and rescheduling
 
 PDF export of clinical reports
 
-Patient Mode
+
+Patient Mode:
 
 Voice-assisted symptom description
 
@@ -53,23 +54,25 @@ Medication delivery request simulation
 
 PDF export of patient summary
 
-Technologies Used
 
-HTML5 – Application structure
+Technologies Used:
 
-CSS3 – Responsive UI design
+1) HTML5 – Application structure
 
-JavaScript (Vanilla JS) – Core logic and functionality
+2) CSS3 – Responsive UI design
 
-Web Speech API – Voice recognition (Doctor and Patient modes)
+3) JavaScript (Vanilla JS) – Core logic and functionality
 
-jsPDF – PDF generation and export
+4) Web Speech API – Voice recognition (Doctor and Patient modes)
 
-LocalStorage – Demo data simulation
+5) jsPDF – PDF generation and export
 
-Firebase Authentication – Secure doctor access control
+6) LocalStorage – Demo data simulation
 
-Vision
+7) Firebase Authentication – Secure doctor access control
+
+
+Vision:
 
 ClinAssist AI is designed as a scalable digital health assistant capable of evolving into:
 

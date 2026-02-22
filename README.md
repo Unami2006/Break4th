@@ -1,3 +1,6 @@
+To access the demo use the link below:
+https://unami2006.github.io/Break4th/
+
 ClinAssist AI
 Clinical Intelligence Simplified
 Project Purpose

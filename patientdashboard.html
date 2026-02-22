@@ -104,6 +104,233 @@
 </section>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="script.js"></script>
+<script>
+
+/* ===============================
+   ACCESS CONTROL
+================================ */
+
+function checkPatientAccess() {
+    if (localStorage.getItem("patientLoggedIn") !== "true") {
+        window.location.href = "patient-login.html";
+    }
+}
+
+function patientLogout() {
+    localStorage.removeItem("patientLoggedIn");
+    window.location.href = "index.html";
+}
+
+/* ===============================
+   RISK ENGINE (SHARED LOGIC)
+================================ */
+
+function detectRisk(text) {
+
+    text = text.toLowerCase();
+    let possible = [];
+
+    if (text.includes("chest pain") || text.includes("shortness of breath")) {
+        possible.push("Acute Coronary Syndrome", "Angina");
+        return { level: "HIGH RISK - Possible Cardiac Emergency", color: "red", category: possible };
+    }
+
+    if (text.includes("fever") || text.includes("cough")) {
+        possible.push("Influenza", "Respiratory Infection", "COVID-like Viral Illness");
+        return { level: "MODERATE RISK - Possible Infectious Condition", color: "orange", category: possible };
+    }
+
+    possible.push("General Medical Evaluation Required");
+    return { level: "LOW RISK - Routine Consultation", color: "green", category: possible };
+}
+
+/* ===============================
+   PATIENT MODE TOGGLE
+================================ */
+
+let patientRecognition;
+
+function setPatientMode(mode) {
+
+    const typeBtn = document.getElementById("patientTypeBtn");
+    const voiceBtn = document.getElementById("patientVoiceBtn");
+    const status = document.getElementById("patientVoiceStatus");
+
+    typeBtn.classList.remove("active");
+    voiceBtn.classList.remove("active");
+
+    if (mode === "type") {
+        typeBtn.classList.add("active");
+        if (patientRecognition) patientRecognition.stop();
+        status.classList.add("hidden");
+    } else {
+        voiceBtn.classList.add("active");
+        startPatientVoice();
+    }
+}
+
+/* ===============================
+   PATIENT VOICE AI
+================================ */
+
+function startPatientVoice() {
+
+    const input = document.getElementById("patientInput");
+    const status = document.getElementById("patientVoiceStatus");
+
+    if (!("webkitSpeechRecognition" in window || "SpeechRecognition" in window)) {
+        alert("Voice recognition not supported in this browser.");
+        return;
+    }
+
+    patientRecognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+
+    patientRecognition.lang = "en-US";
+    patientRecognition.start();
+
+    status.classList.remove("hidden");
+
+    patientRecognition.onresult = function (event) {
+        input.value = event.results[0][0].transcript;
+    };
+
+    patientRecognition.onend = function () {
+        status.classList.add("hidden");
+    };
+
+    patientRecognition.onerror = function () {
+        status.classList.add("hidden");
+        alert("Voice recognition error.");
+    };
+}
+
+/* ===============================
+   GENERATE SUMMARY
+================================ */
+
+function analyzePatient() {
+
+    const input = document.getElementById("patientInput").value.trim();
+    const summaryBox = document.getElementById("summary");
+    const riskBox = document.getElementById("patientRisk");
+    const outputSection = document.getElementById("patientOutput");
+
+    if (!input) {
+        alert("Please describe your symptoms.");
+        return;
+    }
+
+    const risk = detectRisk(input);
+
+    summaryBox.innerHTML = `
+        <strong>Patient Report:</strong><br><br>
+        ${input}<br><br>
+        <strong>Preliminary Assessment:</strong><br>
+        ${risk.category.join(", ")}
+    `;
+
+    riskBox.innerText = risk.level;
+
+    if (risk.color === "red") riskBox.style.background = "#7f1d1d";
+    else if (risk.color === "orange") riskBox.style.background = "#7c2d12";
+    else riskBox.style.background = "#14532d";
+
+    outputSection.classList.remove("hidden");
+}
+
+/* ===============================
+   SEND TO DOCTOR
+================================ */
+
+function sendToDoctorFromPatient() {
+
+    const input = document.getElementById("patientInput").value;
+    if (!input) return;
+
+    const submissions = JSON.parse(localStorage.getItem("submissions")) || [];
+
+    submissions.push({
+        name: "Live Patient",
+        summary: input,
+        date: new Date().toLocaleString()
+    });
+
+    localStorage.setItem("submissions", JSON.stringify(submissions));
+
+    alert("Summary sent to doctor successfully.");
+}
+
+/* ===============================
+   BOOK APPOINTMENT
+================================ */
+
+function bookAppointment() {
+
+    const date = document.getElementById("appointmentDate").value;
+    const type = document.getElementById("appointmentType").value;
+
+    if (!date) {
+        alert("Please select a date.");
+        return;
+    }
+
+    const appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+
+    appointments.push({
+        name: "Live Patient",
+        date,
+        type,
+        status: "Pending"
+    });
+
+    localStorage.setItem("appointments", JSON.stringify(appointments));
+
+    alert("Appointment request sent.");
+}
+
+/* ===============================
+   MEDICATION REQUEST
+================================ */
+
+function requestMedication() {
+
+    const medication = document.getElementById("medicationSelect").value;
+    const box = document.getElementById("deliveryStatus");
+
+    box.innerHTML = `
+        Medication Requested: ${medication}<br>
+        Status: Processing Delivery<br>
+        Estimated Arrival: 24-48 Hours
+    `;
+
+    box.classList.remove("hidden");
+}
+
+/* ===============================
+   PDF EXPORT
+================================ */
+
+async function downloadPatientPDF() {
+
+    if (!window.jspdf) {
+        alert("PDF library not loaded.");
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    const summaryText = document.getElementById("summary").innerText || "No summary available.";
+
+    doc.setFontSize(16);
+    doc.text("ClinAssist AI - Patient Summary", 20, 20);
+
+    doc.setFontSize(12);
+    doc.text(summaryText, 20, 35);
+
+    doc.save("Patient_Summary.pdf");
+}
+
+</script>
 </body>
 </html>

@@ -1,37 +1,37 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Patient Login | ClinAssist AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="auth-body">
 
 <div class="auth-wrapper">
 
-    <div class="auth-card">
-        <h2>Patient Login</h2>
-        <p class="auth-subtext">Access your health summary portal</p>
+  <div class="auth-card">
 
-        <input type="text" id="patientUsername" placeholder="Username">
-        <input type="password" id="patientPassword" placeholder="Password">
+    <h2>Patient Login</h2>
 
-        <button class="auth-btn" onclick="patientLogin()">Login</button>
+    <input type="text" id="patientUsername" placeholder="Username">
+    <input type="password" id="patientPassword" placeholder="Password">
 
-        <p id="patientError" class="error"></p>
+    <button class="auth-btn" onclick="patientLogin()">
+      Login
+    </button>
 
-        <div class="demo-box">
-            <h4>Demo Account</h4>
-            <p><strong>Username:</strong> john123</p>
-            <p><strong>Password:</strong> patient123</p>
-        </div>
-
-        <a href="index.html" class="back-link">← Back to Home</a>
+    <div class="demo-box">
+      Demo Login:<br>
+      Username: john123<br>
+      Password: patient123
     </div>
+
+  </div>
 
 </div>
 
 <script src="script.js"></script>
+
 </body>
 </html>

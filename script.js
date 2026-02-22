@@ -288,3 +288,46 @@ async function downloadDoctorPDF() {
 
     doc.save("Doctor_Report.pdf");
 }
+/* ===============================
+   PATIENT LOGIN SYSTEM (DEMO)
+================================ */
+
+function patientLogin() {
+
+    const username = document.getElementById("patientUsername")?.value;
+    const password = document.getElementById("patientPassword")?.value;
+
+    if (!username || !password) {
+        alert("Please enter username and password.");
+        return;
+    }
+
+    if (username === "john123" && password === "patient123") {
+        localStorage.setItem("patientLoggedIn", "true");
+        window.location.href = "patientdashboard.html";
+    } else {
+        alert("Invalid credentials.");
+    }
+}
+
+/* ===============================
+   PROTECT PATIENT DASHBOARD
+================================ */
+
+function protectPatientDashboard() {
+
+    const loggedIn = localStorage.getItem("patientLoggedIn");
+
+    if (!loggedIn) {
+        window.location.href = "patient-login.html";
+    }
+}
+
+/* ===============================
+   PATIENT LOGOUT
+================================ */
+
+function patientLogout() {
+    localStorage.removeItem("patientLoggedIn");
+    window.location.href = "index.html";
+}

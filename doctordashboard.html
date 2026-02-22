@@ -5,13 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="style.css">
 </head>
-<body onload="checkAccess('doctor'); loadDoctorActivity();">
+
+<body>
 
 <nav>
   <a href="index.html">← Home</a>
   <h2>Doctor Dashboard</h2>
   <button onclick="logout()">Logout</button>
 </nav>
+
 <div class="info-banner">
   <strong>How It Works:</strong>
   <ul>
@@ -57,8 +59,8 @@
         <div id="diagnosis" class="output-box"></div>
 
         <button class="secondary-btn" onclick="downloadDoctorPDF()">
-          Download Report
-        </button>
+  Download Report
+</button>
 
       </div>
 
@@ -73,7 +75,6 @@
       <p style="color:#94a3b8; font-size:14px; margin-bottom:10px;">
         Sorted by Risk Priority (High → Low)
       </p>
-
       <div id="patientSubmissions"></div>
     </div>
 
@@ -88,5 +89,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="script.js"></script>
+<script type="module" src="firebase.js"></script>
+
 </body>
 </html>

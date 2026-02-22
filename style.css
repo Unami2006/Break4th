@@ -658,6 +658,34 @@ select, input[type="date"] {
 .accordion-content ul {
     padding-left: 20px;
 }
+/* ===============================
+   AUTH BUTTONS - LIGHT BLUE
+================================ */
+
+.auth-card button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+    color: white;
+    box-shadow: 0 4px 15px rgba(56, 189, 248, 0.4);
+}
+
+.auth-card button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.6);
+}
+
+.auth-card button:active {
+    transform: translateY(0px);
+}
 /* ===== DOCTOR RISK RANKING ===== */
 
 .risk-badge {
